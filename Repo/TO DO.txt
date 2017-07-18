@@ -1,0 +1,8 @@
+﻿Location w klasie position
+TRequired permission
+2 to co mis chcial po kodzie pocztowym
+3 w jaki sposob przechowywac zdjecie
+4 seed dla position
+str 322 opmalizacja listy miejsc
+auto uzupełnianie od Pawła 
+Metoda seed w location dodała do place 10 pustych ale location tez dodała 10

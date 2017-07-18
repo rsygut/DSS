@@ -192,7 +192,7 @@ namespace Repo.Migrations
             {
                 var pos = new Position()
                 {
-                    Id = i,
+                    Place = new Place(),
                     Location = "Lokalizacja" + i.ToString()
                     
                     //dodac w seedzie cos z required place

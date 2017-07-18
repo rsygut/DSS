@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -11,13 +12,15 @@ namespace Repo.Models
     {
         public Place()
         {
-            ReguiredPermission = new List<RequiredPermission>();
+            ReguiredPermission = new List<RequiredPermission>(); // jaki to ma być typ relacji??
             Picture = new List<Picture>();
             Comment = new List<Comment>();
         }
 
         public int Id { get; set; }
+        [DisplayName ("Dojazd")]
         public string Drive { get; set; }
+        [DisplayName ("Właściciel")]
         public string Owner { get; set; }
         public int Height { get; set; }
         public decimal MaxDeep { get; set; }
