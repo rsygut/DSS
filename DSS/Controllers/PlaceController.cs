@@ -129,6 +129,7 @@ namespace DSS.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Place place = db.Place.Find(id);
+            db.Picture.RemoveRange(place.Picture);
             db.Place.Remove(place);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -139,6 +139,10 @@
     <Compile Include="Migrations\201707181810382_NaprawaSeedPosition.Designer.cs">
       <DependentUpon>201707181810382_NaprawaSeedPosition.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707191713247_CascadeDelete.cs" />
+    <Compile Include="Migrations\201707191713247_CascadeDelete.Designer.cs">
+      <DependentUpon>201707191713247_CascadeDelete.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Access.cs" />
     <Compile Include="Models\Category.cs" />
@@ -164,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707181810382_NaprawaSeedPosition.resx">
       <DependentUpon>201707181810382_NaprawaSeedPosition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707191713247_CascadeDelete.resx">
+      <DependentUpon>201707191713247_CascadeDelete.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

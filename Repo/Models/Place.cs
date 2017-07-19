@@ -40,10 +40,10 @@ namespace Repo.Models
 
         public virtual Position Position { get; set; }
         //one to many
-        public virtual ICollection<RequiredPermission> ReguiredPermission { get; private set; }
+        public virtual ICollection<RequiredPermission> ReguiredPermission { get; set; }
         [DisplayName("Zdjęcia")]
-        public virtual ICollection<Picture> Picture { get; private set; }
-        public virtual ICollection<Comment> Comment { get; private set; }
+        public virtual ICollection<Picture> Picture { get; set; }
+        public virtual ICollection<Comment> Comment { get; set; }
 
         //1 kategoria moze miec wiele miejsc
         public Category Category { get; set; }
