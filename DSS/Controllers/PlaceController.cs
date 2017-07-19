@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Repo.Models;
 using System.Diagnostics;
+using System.IO;
 
 namespace DSS.Controllers
 {
@@ -52,10 +53,16 @@ namespace DSS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Drive,Owner,Height,MaxDeep,Visibility,Danger,PlaceDescription,Logistic,FaunaAndFlora,AttractionDescribe,Other,GridX,GridY,UserId")] Place place)
+        public ActionResult Create([Bind(Include = "Id,Drive,Owner,Height,MaxDeep,Visibility,Danger,PlaceDescription,Logistic,FaunaAndFlora,AttractionDescribe,Other,GridX,GridY,UserId,file")] Place place, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
-            {
+            {                
+                var fileName = Guid.NewGuid().ToString();
+                var path = Path.Combine(Server.MapPath("~/App_Data/Images/"), fileName);
+                file.SaveAs(path);
+                var picture = new Picture {PictureName = fileName,Created = DateTime.UtcNow};
+                place.Picture.Add(picture); 
+
                 db.Place.Add(place);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -125,6 +132,13 @@ namespace DSS.Controllers
             db.Place.Remove(place);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult ShowPhoto(string dataId)
+        {
+            var dir = Server.MapPath("~/App_Data/Images/");
+            var path = Path.Combine(dir, dataId);
+            return File(path, "image/jpeg");
         }
 
         protected override void Dispose(bool disposing)

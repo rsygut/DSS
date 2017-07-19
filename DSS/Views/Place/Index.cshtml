@@ -53,6 +53,9 @@
         <th>
             @Html.DisplayNameFor(model => model.GridY)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Picture)
+        </th>
         <th></th>
     </tr>
 
@@ -99,6 +102,13 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.GridY)
+        </td>
+        <td>
+            @foreach (var picture in item.Picture)
+            {
+                
+                <img src="@Url.Action("ShowPhoto","Place",new {dataId = picture.PictureName})" class="media" alt="" width="150" height="150" />
+            }
         </td>
         <td>
             @Html.ActionLink("Edytuj", "Edit", new { id=item.Id },new { @class = "btn btn-primary" }) 
