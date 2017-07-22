@@ -1,7 +1,19 @@
-﻿@{
+﻿@model IEnumerable<Repo.Models.Place>
+
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="container">
-    <h1>Dupa </h1>
+    
+@foreach (var item in Model)
+{
+    <div class="col-md-4">
+        @foreach (var picture in item.Picture)
+        {
+            <img src="@Url.Action("ShowPhoto","Place",new {dataId = picture.PictureName})" class="media" alt="" width="150" height="150" />
+        }
+    </div>
+}
+ 
 </div>
