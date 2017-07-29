@@ -1,18 +1,15 @@
 ﻿@model Repo.Models.Place
-
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Dodaj miejsce";
 }
-
-<h2>Create</h2>
-
-
-@using (Html.BeginForm("Create","Place",FormMethod.Post, new {enctype = "multipart/form-data"})) 
+<h2>Dodaj nowe miejsce</h2>
+@*BRAKUJE DATY DODANIA*@
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Place</h4>
+        <h4>Miejsce</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -22,7 +19,6 @@
                 @Html.ValidationMessageFor(model => model.Drive, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Owner, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -30,7 +26,6 @@
                 @Html.ValidationMessageFor(model => model.Owner, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Height, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -38,7 +33,6 @@
                 @Html.ValidationMessageFor(model => model.Height, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.MaxDeep, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -46,7 +40,6 @@
                 @Html.ValidationMessageFor(model => model.MaxDeep, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Visibility, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -54,7 +47,6 @@
                 @Html.ValidationMessageFor(model => model.Visibility, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Danger, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -62,7 +54,6 @@
                 @Html.ValidationMessageFor(model => model.Danger, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.PlaceDescription, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -70,7 +61,6 @@
                 @Html.ValidationMessageFor(model => model.PlaceDescription, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Logistic, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -78,7 +68,6 @@
                 @Html.ValidationMessageFor(model => model.Logistic, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.FaunaAndFlora, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -86,7 +75,6 @@
                 @Html.ValidationMessageFor(model => model.FaunaAndFlora, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.AttractionDescribe, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -94,7 +82,6 @@
                 @Html.ValidationMessageFor(model => model.AttractionDescribe, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Other, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -102,7 +89,6 @@
                 @Html.ValidationMessageFor(model => model.Other, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.GridX, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -110,7 +96,6 @@
                 @Html.ValidationMessageFor(model => model.GridX, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.GridY, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -118,22 +103,13 @@
                 @Html.ValidationMessageFor(model => model.GridY, "", new { @class = "text-danger" })
             </div>
         </div>
-
         @*<div class="form-group">
-            @Html.LabelFor(model => model.UserId, "UserId", htmlAttributes: new {@class = "control-label col-md-2"})
-            <div class="col-md-10">
-                @Html.DropDownList("UserId", null, htmlAttributes: new {@class = "form-control"})
-                @Html.ValidationMessageFor(model => model.UserId, "", new {@class = "text-danger"})
-            </div>
-        </div>*@
-
-        <div class="form-group">
-            @Html.Label("Zdjęcie", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <p>@Html.TextBox("file", "", new { type = "file" })</p>
-            </div>
-        </div>
-
+                @Html.LabelFor(model => model.UserId, "UserId", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("UserId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
@@ -141,11 +117,9 @@
         </div>
     </div>
 }
-
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Wróć", "Index", null, new { @class = "btn-warning" })
 </div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

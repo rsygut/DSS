@@ -1,22 +1,32 @@
 ﻿@model Repo.Models.Place
-
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edytuj miejsce";
 }
-
-<h2>Edit</h2>
-
+<h2>Edytuj miejsce nr @Model.Id</h2>
+@if (ViewBag.Error == true)
+{
+    <div class="alert alert-danger" role="alert">
+        Wystąpił błąd podczas edycji. <br />
+        Spróbuj ponownie.
+    </div>
+}
+else if (ViewBag.Error == false)
+{
+    <div class="alert alert-success" role="alert">
+        Pomyślnie edytowano.
+        Twoje miejsce wygląda następująco:
+    </div>
+}
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Place</h4>
+        <h4>Miejsce</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
-
         <div class="form-group">
             @Html.LabelFor(model => model.Drive, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -24,7 +34,6 @@
                 @Html.ValidationMessageFor(model => model.Drive, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Owner, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -32,7 +41,6 @@
                 @Html.ValidationMessageFor(model => model.Owner, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Height, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -40,7 +48,6 @@
                 @Html.ValidationMessageFor(model => model.Height, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.MaxDeep, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -48,7 +55,6 @@
                 @Html.ValidationMessageFor(model => model.MaxDeep, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Visibility, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -56,7 +62,6 @@
                 @Html.ValidationMessageFor(model => model.Visibility, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Danger, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -64,7 +69,6 @@
                 @Html.ValidationMessageFor(model => model.Danger, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.PlaceDescription, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -72,7 +76,6 @@
                 @Html.ValidationMessageFor(model => model.PlaceDescription, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Logistic, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -80,7 +83,6 @@
                 @Html.ValidationMessageFor(model => model.Logistic, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.FaunaAndFlora, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -88,7 +90,6 @@
                 @Html.ValidationMessageFor(model => model.FaunaAndFlora, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.AttractionDescribe, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -96,7 +97,6 @@
                 @Html.ValidationMessageFor(model => model.AttractionDescribe, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Other, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -104,7 +104,6 @@
                 @Html.ValidationMessageFor(model => model.Other, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.GridX, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -112,7 +111,6 @@
                 @Html.ValidationMessageFor(model => model.GridX, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.GridY, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -120,27 +118,24 @@
                 @Html.ValidationMessageFor(model => model.GridY, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        @Html.HiddenFor(m => m.UserId)
         @*<div class="form-group">
-            @Html.LabelFor(model => model.UserId, "UserId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("UserId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
+                @Html.LabelFor(model => model.UserId, "UserId", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("UserId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Zapisz" class="btn btn-default-sucess" />
             </div>
         </div>
     </div>
 }
-
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Wróć", "Index", null, new { @class = "btn btn-warning" })
 </div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

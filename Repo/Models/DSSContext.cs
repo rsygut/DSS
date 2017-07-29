@@ -4,16 +4,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using Repo.IR;
 
 namespace Repo.Models
 {
     // You can add profile data for the user by adding more properties to your User class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
    
 
-    public class DSSContext : IdentityDbContext
+    public class DSSContext : IdentityDbContext, IDSSContext
     {
         public DSSContext()
             : base("DefaultConnection")
+
+            //  tu mozna zmienic nazwe do sql
         {
         }
 
@@ -30,6 +33,7 @@ namespace Repo.Models
         public DbSet<Position> Position { get; set; }
         public DbSet<RequiredPermission> RequiredPermission { get; set; }
         public DbSet<User> User { get; set; }
+ 
 
         //wyłaczenie nadpisania nazw tabel jako liczby mnogiej
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

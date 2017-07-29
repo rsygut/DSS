@@ -8,31 +8,40 @@ using System.Web;
 using System.Web.Mvc;
 using Repo.Models;
 using System.Diagnostics;
-using System.IO;
+using Repo.R;
+using Repo.IR;
+using Microsoft.AspNet.Identity;
 
 namespace DSS.Controllers
 {
     public class PlaceController : Controller
     {
-        private DSSContext db = new DSSContext();
+        private readonly IPlaceRepo _repo;
+
+        public PlaceController(IPlaceRepo repo)
+        {
+
+            _repo = repo;
+        }
 
         // GET: Places
         public ActionResult Index()
         {
-            db.Database.Log = message => Trace.WriteLine(message);
-            var place = db.Place.AsNoTracking();
-                //Include(p => p.Position).Include(p => p.User); przyspieszenie str323
-            return View(place.ToList());
+            var place = _repo.DownloadPlace();
+            return View(place);
+            //Include(p => p.Position).Include(p => p.User); przyspieszenie str323
+
         }
 
-        // GET: Places/Details/5
+
+        //GET: Places/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Place place = db.Place.Find(id);
+            Place place = _repo.GetPlaceById((int)id);
             if (place == null)
             {
                 return HttpNotFound();
@@ -43,33 +52,45 @@ namespace DSS.Controllers
         // GET: Places/Create
         public ActionResult Create()
         {
-            ViewBag.Id = new SelectList(db.Position, "Id", "Location");// tu tez moze byc problem
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Email");
+            //ViewBag.Id = new SelectList(db.Position, "Id", "Location");// tu tez moze byc problem
+            //ViewBag.UserId = new SelectList(db.Users, "Id", "Email"); lista uzytkownow przy dodaniu miejsca j=nie jest otrzebna
+            // bo moze dodac tylko 1 str 353
             return View();
         }
 
         // POST: Places/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+
+        //[Authorize] Do testow zakomentowalem
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Drive,Owner,Height,MaxDeep,Visibility,Danger,PlaceDescription,Logistic,FaunaAndFlora,AttractionDescribe,Other,GridX,GridY,UserId,file")] Place place, HttpPostedFileBase file)
+        public ActionResult Create([Bind(Include = "Drive,Owner,Height,MaxDeep,Visibility,Danger,PlaceDescription,Logistic,FaunaAndFlora,AttractionDescribe,Other,GridX,GridY,")] Place place)
         {
             if (ModelState.IsValid)
-            {                
-                var fileName = Guid.NewGuid().ToString();
-                var path = Path.Combine(Server.MapPath("~/App_Data/Images/"), fileName);
-                file.SaveAs(path);
-                var picture = new Picture {PictureName = fileName,Created = DateTime.UtcNow};
-                place.Picture.Add(picture); 
-
-                db.Place.Add(place);
-                db.SaveChanges();
+            {
+                place.UserId = User.Identity.GetUserId();
+                _repo.AddPlace(place);   //test dodawania str 356
+                _repo.SaveChanges();
                 return RedirectToAction("Index");
+                //place.AddDate = DateTime.Now;
+                //try
+                //{
+                //    _repo.AddPlace(place);
+                //    _repo.SaveChanges();
+                //    return RedirectToAction("Index");
+                //}
+                //catch 
+                //{
+
+                //    return View(place);
+                //}
+
             }
 
-            ViewBag.Id = new SelectList(db.Position, "Id", "Location", place.Id);// TU TEZ MOZE BYC ZLE
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Email", place.UserId);
+            //ViewBag.Id = new SelectList(db.Position, "Id", "Location", place.Id);// TU TEZ MOZE BYC ZLE, Prawdopodobnie do wywaenia
+            //ViewBag.UserId = new SelectList(db.Users, "Id", "Email", place.UserId);
             return View(place);
         }
 
@@ -80,13 +101,12 @@ namespace DSS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Place place = db.Place.Find(id);
+            Place place = _repo.GetPlaceById((int)(id));
             if (place == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Id = new SelectList(db.Position, "Id", "Location", place.Id);// TU TEZ
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Email", place.UserId);
+
             return View(place);
         }
 
@@ -99,26 +119,38 @@ namespace DSS.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(place).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    //place.UserId = "fsasd"
+                    _repo.UpdatePlace(place);
+                    _repo.SaveChanges();
+                }
+                catch
+                {
+                    ViewBag.Error = true;
+                    return View(place);
+                }
             }
-            ViewBag.Id = new SelectList(db.Position, "Id", "Location", place.Id);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Email", place.UserId);
+            ViewBag.Error = false;
             return View(place);
+
         }
 
         // GET: Places/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, bool? error)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Place place = db.Place.Find(id);
+            Place place = _repo.GetPlaceById((int)id);
             if (place == null)
             {
                 return HttpNotFound();
+            }
+            if (error != null)
+            {
+                ViewBag.Error = true;
             }
             return View(place);
         }
@@ -126,29 +158,39 @@ namespace DSS.Controllers
         // POST: Places/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+
+        // zamiana 
         public ActionResult DeleteConfirmed(int id)
         {
-            Place place = db.Place.Find(id);
-            db.Picture.RemoveRange(place.Picture);
-            db.Place.Remove(place);
-            db.SaveChanges();
+            _repo.DeletePlace(id);
+            try
+            {
+                _repo.SaveChanges();
+            }
+            catch
+            {
+                return RedirectToAction("Delete", new { id = id, error = true });
+            }
             return RedirectToAction("Index");
         }
+        // stara wersja
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    for (int i = 0; i < 3; i++)
+        //    {
+        //        if( _repo.DeletePlace(id))
+        //            break;
+        //    }
+        //    return RedirectToAction("Index");
+        //}
 
-        public ActionResult ShowPhoto(string dataId)
-        {
-            var dir = Server.MapPath("~/App_Data/Images/");
-            var path = Path.Combine(dir, dataId);
-            return File(path, "image/jpeg");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }
