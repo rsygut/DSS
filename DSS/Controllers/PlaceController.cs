@@ -11,17 +11,19 @@ using System.Diagnostics;
 using Repo.R;
 using Repo.IR;
 using Microsoft.AspNet.Identity;
+using System.IO;
 
 namespace DSS.Controllers
 {
     public class PlaceController : Controller
     {
         private readonly IPlaceRepo _repo;
+        private readonly IPictureRepo _pictureRepo;
 
-        public PlaceController(IPlaceRepo repo)
+        public PlaceController(IPlaceRepo repo, IPictureRepo pictureRepo)
         {
-
             _repo = repo;
+            _pictureRepo = pictureRepo;
         }
 
         // GET: Places
@@ -66,10 +68,16 @@ namespace DSS.Controllers
         //[Authorize] Do testow zakomentowalem
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Drive,Owner,Height,MaxDeep,Visibility,Danger,PlaceDescription,Logistic,FaunaAndFlora,AttractionDescribe,Other,GridX,GridY,")] Place place)
+        public ActionResult Create([Bind(Include = "Drive,Owner,Height,MaxDeep,Visibility,Danger,PlaceDescription,Logistic,FaunaAndFlora,AttractionDescribe,Other,GridX,GridY,file")] Place place, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                var fileName = Guid.NewGuid().ToString();
+                var path = Path.Combine(Server.MapPath("~/App_Data/Images/"), fileName);
+                file.SaveAs(path);
+
+                var picture = new Picture { PictureName = fileName, Created = DateTime.UtcNow };
+                place.Picture.Add(picture);
                 place.UserId = User.Identity.GetUserId();
                 _repo.AddPlace(place);   //test dodawania str 356
                 _repo.SaveChanges();
@@ -115,13 +123,19 @@ namespace DSS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Drive,Owner,Height,MaxDeep,Visibility,Danger,PlaceDescription,Logistic,FaunaAndFlora,AttractionDescribe,Other,GridX,GridY,UserId")] Place place)
+        public ActionResult Edit([Bind(Include = "Id,Drive,Owner,Height,MaxDeep,Visibility,Danger,PlaceDescription,Logistic,FaunaAndFlora,AttractionDescribe,Other,GridX,GridY,UserId,file")] Place place, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    //place.UserId = "fsasd"
+                    var fileName = Guid.NewGuid().ToString();
+                    var path = Path.Combine(Server.MapPath("~/App_Data/Images/"), fileName);
+                    file.SaveAs(path);
+                    var picture = new Picture { PictureName = fileName, Created = DateTime.UtcNow };
+                    _pictureRepo.AddPicture(picture);
+                    place.Picture.Add(picture);
+
                     _repo.UpdatePlace(place);
                     _repo.SaveChanges();
                 }
@@ -132,8 +146,8 @@ namespace DSS.Controllers
                 }
             }
             ViewBag.Error = false;
-            return View(place);
-
+            var editedPlace = _repo.GetPlaceById(place.Id);
+            return View(editedPlace);        
         }
 
         // GET: Places/Delete/5
@@ -163,6 +177,7 @@ namespace DSS.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             _repo.DeletePlace(id);
+            
             try
             {
                 _repo.SaveChanges();
@@ -192,5 +207,11 @@ namespace DSS.Controllers
         //    }
         //    base.Dispose(disposing);
         //}
+        public ActionResult ShowPhoto(string dataId)
+        {
+            var dir = Server.MapPath("~/App_Data/Images/");
+            var path = Path.Combine(dir, dataId);
+            return File(path, "image/jpeg");
+        }
     }
 }

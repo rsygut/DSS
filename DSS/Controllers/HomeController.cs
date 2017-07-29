@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Repo.IR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +9,15 @@ namespace DSS.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IPlaceRepo _placeRepo;
+
+        public HomeController(IPlaceRepo placeRepo)
+        {
+            _placeRepo = placeRepo;
+        }
         public ActionResult Index()
         {
-            return View();
+            return View(_placeRepo.DownloadPlace());
         }
 
         public ActionResult About()

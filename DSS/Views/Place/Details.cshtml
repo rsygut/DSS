@@ -98,6 +98,15 @@
         <dd>
             @Html.DisplayFor(model => model.GridY)
         </dd>
+        <dt>
+            @Html.Label("Zdjęcie")
+        </dt>
+        <dd>
+            @foreach (var picture in Model.Picture)
+            {
+                <img src="@Url.Action("ShowPhoto","Place",new {dataId = picture.PictureName})" class="media" alt="" width="150" height="150" />
+            }
+        </dd>
     </dl>
 </div>
 <p>

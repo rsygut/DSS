@@ -11,6 +11,6 @@ namespace Repo.Models
         public string PictureName { get; set; }
         public DateTime Created { get; set; }
 
-        public Place Place { get; set; }
+        public virtual Place Place { get; set; }
     }
 }

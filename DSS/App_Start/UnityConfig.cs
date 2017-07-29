@@ -39,6 +39,7 @@ namespace DSS.App_Start
             container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<ManageController>(new InjectionConstructor());
             container.RegisterType<IPlaceRepo, PlaceRepo>(new PerRequestLifetimeManager());
+            container.RegisterType<IPictureRepo, PictureRepo>(new PerRequestLifetimeManager());
             container.RegisterType<IDSSContext, DSSContext>(new PerRequestLifetimeManager());
 
             // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
