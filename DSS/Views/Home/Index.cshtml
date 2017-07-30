@@ -8,10 +8,7 @@
     @foreach (var item in Model)
     {
         <div class="col-md-4">
-            @foreach (var picture in item.Picture)
-            {
-                <img src="@Url.Action("ShowPhoto","Place",new {dataId = picture.PictureName})" class="media" alt="" width="150" height="150" />
-            }
+            <img src="@Url.Action("ShowPhoto","Place",new {dataId = item.Picture.FirstOrDefault(x=>x.IsDefault)?.PictureName})" class="img-responsive" alt="" />
         </div>
     }
 

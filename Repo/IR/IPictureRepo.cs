@@ -11,5 +11,8 @@ namespace Repo.IR
     {
         void RemoveRange(List<Picture> pictures);
         void AddPicture(Picture picture);
+
+        void Remove(int pictureId);
+        void SetAsDefault(int pictureId, int placeId);
     }
 }

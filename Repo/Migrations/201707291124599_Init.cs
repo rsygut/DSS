@@ -3,12 +3,12 @@ namespace Repo.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class startowaprzedposition : DbMigration
+    public partial class Init : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.Access",
+                "dbo.Accesses",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -17,7 +17,7 @@ namespace Repo.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Place",
+                "dbo.Places",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -34,20 +34,20 @@ namespace Repo.Migrations
                         Other = c.String(),
                         GridX = c.Single(nullable: false),
                         GridY = c.Single(nullable: false),
+                        UserId = c.String(maxLength: 128),
                         Access_Id = c.Int(),
                         Category_Id = c.Int(),
-                        User_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Access", t => t.Access_Id)
-                .ForeignKey("dbo.Category", t => t.Category_Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
+                .ForeignKey("dbo.Accesses", t => t.Access_Id)
+                .ForeignKey("dbo.Categories", t => t.Category_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .Index(t => t.UserId)
                 .Index(t => t.Access_Id)
-                .Index(t => t.Category_Id)
-                .Index(t => t.User_Id);
+                .Index(t => t.Category_Id);
             
             CreateTable(
-                "dbo.Category",
+                "dbo.Categories",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -56,7 +56,7 @@ namespace Repo.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Comment",
+                "dbo.Comments",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -65,34 +65,35 @@ namespace Repo.Migrations
                         Place_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Place", t => t.Place_Id)
+                .ForeignKey("dbo.Places", t => t.Place_Id)
                 .Index(t => t.Place_Id);
             
             CreateTable(
-                "dbo.Picture",
+                "dbo.Pictures",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         PictureName = c.String(),
-                        Creted = c.DateTime(nullable: false),
+                        Created = c.DateTime(nullable: false),
                         Place_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Place", t => t.Place_Id)
+                .ForeignKey("dbo.Places", t => t.Place_Id)
                 .Index(t => t.Place_Id);
             
             CreateTable(
-                "dbo.Position",
+                "dbo.Positions",
                 c => new
                     {
                         Id = c.Int(nullable: false),
+                        Location = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Place", t => t.Id)
+                .ForeignKey("dbo.Places", t => t.Id)
                 .Index(t => t.Id);
             
             CreateTable(
-                "dbo.RequiredPermission",
+                "dbo.RequiredPermissions",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -100,7 +101,7 @@ namespace Repo.Migrations
                         Place_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Place", t => t.Place_Id)
+                .ForeignKey("dbo.Places", t => t.Place_Id)
                 .Index(t => t.Place_Id);
             
             CreateTable(
@@ -136,7 +137,7 @@ namespace Repo.Migrations
                         ClaimValue = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
             CreateTable(
@@ -148,7 +149,7 @@ namespace Repo.Migrations
                         UserId = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
             CreateTable(
@@ -159,8 +160,8 @@ namespace Repo.Migrations
                         RoleId = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
             
@@ -182,38 +183,38 @@ namespace Repo.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Place", "User_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.RequiredPermission", "Place_Id", "dbo.Place");
-            DropForeignKey("dbo.Position", "Id", "dbo.Place");
-            DropForeignKey("dbo.Picture", "Place_Id", "dbo.Place");
-            DropForeignKey("dbo.Comment", "Place_Id", "dbo.Place");
-            DropForeignKey("dbo.Place", "Category_Id", "dbo.Category");
-            DropForeignKey("dbo.Place", "Access_Id", "dbo.Access");
+            DropForeignKey("dbo.Places", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.RequiredPermissions", "Place_Id", "dbo.Places");
+            DropForeignKey("dbo.Positions", "Id", "dbo.Places");
+            DropForeignKey("dbo.Pictures", "Place_Id", "dbo.Places");
+            DropForeignKey("dbo.Comments", "Place_Id", "dbo.Places");
+            DropForeignKey("dbo.Places", "Category_Id", "dbo.Categories");
+            DropForeignKey("dbo.Places", "Access_Id", "dbo.Accesses");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.RequiredPermission", new[] { "Place_Id" });
-            DropIndex("dbo.Position", new[] { "Id" });
-            DropIndex("dbo.Picture", new[] { "Place_Id" });
-            DropIndex("dbo.Comment", new[] { "Place_Id" });
-            DropIndex("dbo.Place", new[] { "User_Id" });
-            DropIndex("dbo.Place", new[] { "Category_Id" });
-            DropIndex("dbo.Place", new[] { "Access_Id" });
+            DropIndex("dbo.RequiredPermissions", new[] { "Place_Id" });
+            DropIndex("dbo.Positions", new[] { "Id" });
+            DropIndex("dbo.Pictures", new[] { "Place_Id" });
+            DropIndex("dbo.Comments", new[] { "Place_Id" });
+            DropIndex("dbo.Places", new[] { "Category_Id" });
+            DropIndex("dbo.Places", new[] { "Access_Id" });
+            DropIndex("dbo.Places", new[] { "UserId" });
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
-            DropTable("dbo.RequiredPermission");
-            DropTable("dbo.Position");
-            DropTable("dbo.Picture");
-            DropTable("dbo.Comment");
-            DropTable("dbo.Category");
-            DropTable("dbo.Place");
-            DropTable("dbo.Access");
+            DropTable("dbo.RequiredPermissions");
+            DropTable("dbo.Positions");
+            DropTable("dbo.Pictures");
+            DropTable("dbo.Comments");
+            DropTable("dbo.Categories");
+            DropTable("dbo.Places");
+            DropTable("dbo.Accesses");
         }
     }
 }

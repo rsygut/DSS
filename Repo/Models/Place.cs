@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,18 +13,18 @@ namespace Repo.Models
     {
         public Place()
         {
-            ReguiredPermission = new List<RequiredPermission>(); // jaki to ma być typ relacji??
-            Picture = new List<Picture>();
-            Comment = new List<Comment>();
+            ReguiredPermission = new Collection<RequiredPermission>(); // jaki to ma być typ relacji??
+            Picture = new Collection<Picture>();
+            Comment = new Collection<Comment>();
         }
 
         public int Id { get; set; }
-        [DisplayName ("Dojazd")]
+        [DisplayName("Dojazd")]
         public string Drive { get; set; }
-        [DisplayName ("Właściciel")]
+        [DisplayName("Właściciel")]
         public string Owner { get; set; }
         public int Height { get; set; }
-        public decimal MaxDeep { get; set; }
+        public double MaxDeep { get; set; }
         public double Visibility { get; set; }
         public string Danger { get; set; }
         public string PlaceDescription { get; set; }
@@ -37,16 +38,15 @@ namespace Repo.Models
         // public DataType AddDate { get; set; }
         //one to one
         public virtual User User { get; set; }
-        
+
         public virtual Position Position { get; set; }
-        //one to many
-        public virtual ICollection <RequiredPermission>ReguiredPermission { get; private set; }
+        public virtual ICollection<RequiredPermission> ReguiredPermission { get; private set; }
         public virtual ICollection<Picture> Picture { get; private set; }
         public virtual ICollection<Comment> Comment { get; private set; }
 
-    //1 kategoria moze miec wiele miejsc
-    public Category Category { get; set; }
+        //1 kategoria moze miec wiele miejsc
+        public virtual Category Category { get; set; }
         //wiele miejsc moze miec jeden dostep
-        public Access Access { get; set; }
+        public virtual Access Access { get; set; }
     }
 }

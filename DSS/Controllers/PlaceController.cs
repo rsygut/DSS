@@ -76,29 +76,13 @@ namespace DSS.Controllers
                 var path = Path.Combine(Server.MapPath("~/App_Data/Images/"), fileName);
                 file.SaveAs(path);
 
-                var picture = new Picture { PictureName = fileName, Created = DateTime.UtcNow };
+                var picture = new Picture { PictureName = fileName, Created = DateTime.Now, IsDefault = true };
                 place.Picture.Add(picture);
                 place.UserId = User.Identity.GetUserId();
                 _repo.AddPlace(place);   //test dodawania str 356
                 _repo.SaveChanges();
-                return RedirectToAction("Index");
-                //place.AddDate = DateTime.Now;
-                //try
-                //{
-                //    _repo.AddPlace(place);
-                //    _repo.SaveChanges();
-                //    return RedirectToAction("Index");
-                //}
-                //catch 
-                //{
-
-                //    return View(place);
-                //}
-
+                return RedirectToAction("Index");          
             }
-
-            //ViewBag.Id = new SelectList(db.Position, "Id", "Location", place.Id);// TU TEZ MOZE BYC ZLE, Prawdopodobnie do wywaenia
-            //ViewBag.UserId = new SelectList(db.Users, "Id", "Email", place.UserId);
             return View(place);
         }
 
@@ -146,8 +130,7 @@ namespace DSS.Controllers
                 }
             }
             ViewBag.Error = false;
-            var editedPlace = _repo.GetPlaceById(place.Id);
-            return View(editedPlace);        
+            return RedirectToAction("Edit", place.Id);
         }
 
         // GET: Places/Delete/5
@@ -177,7 +160,7 @@ namespace DSS.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             _repo.DeletePlace(id);
-            
+
             try
             {
                 _repo.SaveChanges();
@@ -188,27 +171,11 @@ namespace DSS.Controllers
             }
             return RedirectToAction("Index");
         }
-        // stara wersja
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    for (int i = 0; i < 3; i++)
-        //    {
-        //        if( _repo.DeletePlace(id))
-        //            break;
-        //    }
-        //    return RedirectToAction("Index");
-        //}
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
         public ActionResult ShowPhoto(string dataId)
         {
+            if (dataId == null)
+                return null;
             var dir = Server.MapPath("~/App_Data/Images/");
             var path = Path.Combine(dir, dataId);
             return File(path, "image/jpeg");

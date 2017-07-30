@@ -131,18 +131,30 @@ else if (ViewBag.Error == false)
             <div class="col-md-10">
                 <p>@Html.TextBox("file", "", new { type = "file" })</p>
             </div>
-            @foreach (var picture in Model.Picture)
-                {
-                <div class="col-md-4">
-                    <img src="@Url.Action("ShowPhoto","Place",new {dataId = picture.PictureName})" class="media" alt="" width="150" height="150" />
-                    @*todo style it*@ 
-                    <div class="btn-block">
-                        @Html.ActionLink("Usuń", "Index", null, new { @class = "btn btn-danger" })
-                        @Html.ActionLink("Ustaw jako domyślne", "Index", null, new { @class = "btn btn-warning" })
-                    </div>
-                </div>
-            }
         </div>
+        <hr />
+        @foreach (var picture in Model.Picture)
+        {
+            <div class="col-md-2">
+                <img src="@Url.Action("ShowPhoto", "Place", new {dataId = picture.PictureName})" class="media" alt="" width="150" height="150" />
+                @if (picture.IsDefault)
+                {
+                    <div class="btn-success">
+                        Domyślne zdjęcie
+                    </div>
+                }
+                else
+                {
+
+                    @Html.ActionLink("Ustaw jako domyślne", "SetAsDefault", "Picture", new { pictureId = picture.Id, placeId = Model.Id }, new { @class = "btn btn-warning text-center" })
+
+                }
+
+                @Html.ActionLink("Usuń", "Delete", "Picture", new { pictureId = picture.Id, placeId = Model.Id }, new { @class = "btn btn-danger text-center" })
+            </div>
+        }
+
+        <hr />
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Zapisz" class="btn btn-default-sucess" />

@@ -7,13 +7,13 @@ namespace Repo.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class CascadeDelete : IMigrationMetadata
+    public sealed partial class Isdefaultforpicture : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CascadeDelete));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Isdefaultforpicture));
         
         string IMigrationMetadata.Id
         {
-            get { return "201707191713247_CascadeDelete"; }
+            get { return "201707301052281_Is default for picture"; }
         }
         
         string IMigrationMetadata.Source
