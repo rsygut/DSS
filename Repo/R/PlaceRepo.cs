@@ -35,6 +35,7 @@ namespace Repo.R
         public bool DeletePlace(int id)
         {
             Place place = _db.Place.Find(id);
+            _db.Picture.RemoveRange(place.Picture);
             _db.Place.Remove(place);
             try
             {

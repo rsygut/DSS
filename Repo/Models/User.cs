@@ -15,19 +15,16 @@ namespace Repo.Models
     {
         public User()
         {
-            this.Places = new HashSet<Place>();// tu zrobić porządek bo zrobione na czuja
+            this.Places = new HashSet<Place>();
 
         }
-
-
-        //klucz podstawowy odziedziczony po klasie IdentityUser
         public string Name { get; set; }
         public string Surname { get; set; }
 
         #region Additional field not mapped
         [NotMapped]
         [Display(Name = "Mr/Ms: ")]
-        public string  FullName
+        public string FullName
         {
             get { return Name + " " + Surname; }
         }
@@ -35,12 +32,10 @@ namespace Repo.Models
 
         // proba kluczy
 
-            public virtual ICollection<Place> Places
-        { get; private set; }
+        public virtual ICollection<Place> Places { get; private set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {
-            
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here

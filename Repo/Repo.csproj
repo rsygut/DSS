@@ -136,21 +136,17 @@
     <Compile Include="IR\IDSSContext.cs" />
     <Compile Include="IR\IPictureRepo.cs" />
     <Compile Include="IR\IPlaceRepo.cs" />
-    <Compile Include="Migrations\201707012009453_startowaprzedposition.cs" />
-    <Compile Include="Migrations\201707012009453_startowaprzedposition.Designer.cs">
-      <DependentUpon>201707012009453_startowaprzedposition.cs</DependentUpon>
+    <Compile Include="Migrations\201707291124599_Init.cs" />
+    <Compile Include="Migrations\201707291124599_Init.Designer.cs">
+      <DependentUpon>201707291124599_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707111940404_PoprawaRequiredPermission.cs" />
-    <Compile Include="Migrations\201707111940404_PoprawaRequiredPermission.Designer.cs">
-      <DependentUpon>201707111940404_PoprawaRequiredPermission.cs</DependentUpon>
+    <Compile Include="Migrations\201707301052281_Is default for picture.cs" />
+    <Compile Include="Migrations\201707301052281_Is default for picture.Designer.cs">
+      <DependentUpon>201707301052281_Is default for picture.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707181804044_OneToManyPlaceRequiredPermission.cs" />
-    <Compile Include="Migrations\201707181804044_OneToManyPlaceRequiredPermission.Designer.cs">
-      <DependentUpon>201707181804044_OneToManyPlaceRequiredPermission.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707181810382_NaprawaSeedPosition.cs" />
-    <Compile Include="Migrations\201707181810382_NaprawaSeedPosition.Designer.cs">
-      <DependentUpon>201707181810382_NaprawaSeedPosition.cs</DependentUpon>
+    <Compile Include="Migrations\201707301104383_Changed maxdeep to double.cs" />
+    <Compile Include="Migrations\201707301104383_Changed maxdeep to double.Designer.cs">
+      <DependentUpon>201707301104383_Changed maxdeep to double.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Access.cs" />
@@ -168,17 +164,14 @@
     <Compile Include="R\PlaceRepo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707012009453_startowaprzedposition.resx">
-      <DependentUpon>201707012009453_startowaprzedposition.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707291124599_Init.resx">
+      <DependentUpon>201707291124599_Init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707111940404_PoprawaRequiredPermission.resx">
-      <DependentUpon>201707111940404_PoprawaRequiredPermission.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707301052281_Is default for picture.resx">
+      <DependentUpon>201707301052281_Is default for picture.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707181804044_OneToManyPlaceRequiredPermission.resx">
-      <DependentUpon>201707181804044_OneToManyPlaceRequiredPermission.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707181810382_NaprawaSeedPosition.resx">
-      <DependentUpon>201707181810382_NaprawaSeedPosition.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707301104383_Changed maxdeep to double.resx">
+      <DependentUpon>201707301104383_Changed maxdeep to double.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

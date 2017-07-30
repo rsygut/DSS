@@ -7,13 +7,13 @@ namespace Repo.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class NaprawaSeedPosition : IMigrationMetadata
+    public sealed partial class Init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(NaprawaSeedPosition));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201707181810382_NaprawaSeedPosition"; }
+            get { return "201707291124599_Init"; }
         }
         
         string IMigrationMetadata.Source

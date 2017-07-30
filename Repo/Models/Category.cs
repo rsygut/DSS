@@ -15,6 +15,6 @@ namespace Repo.Models
 
         public string CategoryName { get; set; }
 
-        public virtual ICollection <Place> Place { get; private set;}
+        public virtual ICollection<Place> Place { get; private set; }
     }
 }

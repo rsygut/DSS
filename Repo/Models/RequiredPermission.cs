@@ -12,6 +12,6 @@ namespace Repo.Models
 
         public string PermissionName { get; set; }
 
-        public Place Place { get; set; }
+        public virtual Place Place { get; set; }
     }
 }

@@ -7,13 +7,13 @@ namespace Repo.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class startowaprzedposition : IMigrationMetadata
+    public sealed partial class Changedmaxdeeptodouble : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(startowaprzedposition));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Changedmaxdeeptodouble));
         
         string IMigrationMetadata.Id
         {
-            get { return "201707012009453_startowaprzedposition"; }
+            get { return "201707301104383_Changed maxdeep to double"; }
         }
         
         string IMigrationMetadata.Source
