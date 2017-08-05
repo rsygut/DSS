@@ -36,6 +36,7 @@ namespace Repo.R
         {
             Place place = _db.Place.Find(id);
             _db.Picture.RemoveRange(place.Picture);
+            _db.RequiredPermission.Remove(place.ReguiredPermission);
             _db.Place.Remove(place);
             try
             {

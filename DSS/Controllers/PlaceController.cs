@@ -68,7 +68,7 @@ namespace DSS.Controllers
         //[Authorize] Do testow zakomentowalem
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Drive,Owner,Height,MaxDeep,Visibility,Danger,PlaceDescription,Logistic,FaunaAndFlora,AttractionDescribe,Other,GridX,GridY,file,RequiredPermission")] Place place, HttpPostedFileBase file, string requiredPermission)
+        public ActionResult Create([Bind(Include = "Name,Drive,Owner,Height,MaxDeep,Visibility,Danger,PlaceDescription,Logistic,FaunaAndFlora,AttractionDescribe,Other,GridX,GridY,file,RequiredPermission")] Place place, HttpPostedFileBase file, string requiredPermission)
         {
             if (ModelState.IsValid)
             {
@@ -115,7 +115,7 @@ namespace DSS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Drive,Owner,Height,MaxDeep,Visibility,Danger,PlaceDescription,Logistic,FaunaAndFlora,AttractionDescribe,Other,GridX,GridY,UserId,file")] Place place, HttpPostedFileBase file)
+        public ActionResult Edit([Bind(Include = "Id,Name,Drive,Owner,Height,MaxDeep,Visibility,Danger,PlaceDescription,Logistic,FaunaAndFlora,AttractionDescribe,Other,GridX,GridY,UserId,file")] Place place, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {

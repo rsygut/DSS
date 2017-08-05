@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace DSS.Models
+﻿namespace DSS.Models
 {
-   public enum RequiredPermission
+    public enum RequiredPermission
     {
         OWD,
         AOD,
