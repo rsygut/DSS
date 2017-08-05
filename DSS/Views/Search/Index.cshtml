@@ -59,7 +59,11 @@
                 foreach (var item in Model.Places)
                 {
                     <div class="col-md-4">
-                        <img src="@Url.Action("ShowPhoto","Place",new {dataId = item.Picture.FirstOrDefault(x=>x.IsDefault)?.PictureName})" class="img-responsive" alt="" />
+                        <a href="@Url.Action("Details", new { id = item.Id })">
+                            <img src="@Url.Action("ShowPhoto","Place",new {dataId = item.Picture.FirstOrDefault(x=>x.IsDefault)?.PictureName})"
+                                 class="img-responsive"
+                                 alt="" />
+                        </a>
                     </div>
                 }
             }

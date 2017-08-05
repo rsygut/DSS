@@ -268,8 +268,8 @@
     <Content Include="Views\Place\Details.cshtml" />
     <Content Include="Views\Place\Edit.cshtml" />
     <Content Include="Views\Place\Index.cshtml" />
-    <Content Include="Views\Search\Index2.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Search\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Images\" />

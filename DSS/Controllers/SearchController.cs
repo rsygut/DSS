@@ -1,6 +1,8 @@
 ﻿using DSS.Models.View;
 using Repo.IR;
+using Repo.Models;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 
 namespace DSS.Controllers
@@ -45,6 +47,20 @@ namespace DSS.Controllers
             }
 
             return View("Index",search);
+        }
+
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Place place = _repo.GetPlaceById((int)id);
+            if (place == null)
+            {
+                return HttpNotFound();
+            }
+            return View(place);
         }
     }
 }
