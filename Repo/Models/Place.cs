@@ -13,12 +13,13 @@ namespace Repo.Models
     {
         public Place()
         {
-            ReguiredPermission = new Collection<RequiredPermission>(); // jaki to ma być typ relacji??
             Picture = new Collection<Picture>();
             Comment = new Collection<Comment>();
         }
 
         public int Id { get; set; }
+        [DisplayName("Nazwa")]
+        public string Name { get; set; }
         [DisplayName("Dojazd")]
         public string Drive { get; set; }
         [DisplayName("Właściciel")]
@@ -40,7 +41,7 @@ namespace Repo.Models
         public virtual User User { get; set; }
 
         public virtual Position Position { get; set; }
-        public virtual ICollection<RequiredPermission> ReguiredPermission { get; private set; }
+        public virtual RequiredPermission ReguiredPermission { get; set; }
         public virtual ICollection<Picture> Picture { get; private set; }
         public virtual ICollection<Comment> Comment { get; private set; }
 

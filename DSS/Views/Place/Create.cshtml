@@ -1,4 +1,5 @@
 ﻿@model Repo.Models.Place
+@using DSS.Models;
 @{
     ViewBag.Title = "Dodaj miejsce";
 }
@@ -109,11 +110,21 @@
                     @Html.DropDownList("UserId", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
                 </div>
-            </div>*@
+            </div>*@ 
         <div class="form-group">
             @Html.Label("Zdjęcie", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <p>@Html.TextBox("file", "", new { type = "file" })</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Uprawienie", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("RequiredPermission",
+                    new SelectList(Enum.GetValues(typeof(RequiredPermission))),
+                    "Wybierz uprawienie",
+                    new { @class = "form-control", required=true })
             </div>
         </div>
 

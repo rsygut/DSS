@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    @using (Html.BeginForm("Search", "Search", FormMethod.Get))
+    { 
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.TextBox("search")
+                <input type="submit" name="submit" value="Szukaj" />
+            </div>
+        </div>
+    }
+</div>
+

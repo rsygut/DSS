@@ -7,13 +7,13 @@ namespace Repo.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Isdefaultforpicture : IMigrationMetadata
+    public sealed partial class Init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Isdefaultforpicture));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201707301052281_Is default for picture"; }
+            get { return "201708051018356_Init"; }
         }
         
         string IMigrationMetadata.Source

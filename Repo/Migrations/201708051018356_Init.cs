@@ -21,10 +21,11 @@ namespace Repo.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
                         Drive = c.String(),
                         Owner = c.String(),
                         Height = c.Int(nullable: false),
-                        MaxDeep = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        MaxDeep = c.Double(nullable: false),
                         Visibility = c.Double(nullable: false),
                         Danger = c.String(),
                         PlaceDescription = c.String(),
@@ -75,6 +76,7 @@ namespace Repo.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         PictureName = c.String(),
                         Created = c.DateTime(nullable: false),
+                        IsDefault = c.Boolean(nullable: false),
                         Place_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
@@ -96,13 +98,12 @@ namespace Repo.Migrations
                 "dbo.RequiredPermissions",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false),
                         PermissionName = c.String(),
-                        Place_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Places", t => t.Place_Id)
-                .Index(t => t.Place_Id);
+                .ForeignKey("dbo.Places", t => t.Id)
+                .Index(t => t.Id);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -184,7 +185,7 @@ namespace Repo.Migrations
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.Places", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.RequiredPermissions", "Place_Id", "dbo.Places");
+            DropForeignKey("dbo.RequiredPermissions", "Id", "dbo.Places");
             DropForeignKey("dbo.Positions", "Id", "dbo.Places");
             DropForeignKey("dbo.Pictures", "Place_Id", "dbo.Places");
             DropForeignKey("dbo.Comments", "Place_Id", "dbo.Places");
@@ -196,7 +197,7 @@ namespace Repo.Migrations
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.RequiredPermissions", new[] { "Place_Id" });
+            DropIndex("dbo.RequiredPermissions", new[] { "Id" });
             DropIndex("dbo.Positions", new[] { "Id" });
             DropIndex("dbo.Pictures", new[] { "Place_Id" });
             DropIndex("dbo.Comments", new[] { "Place_Id" });

@@ -68,16 +68,24 @@ namespace DSS.Controllers
         //[Authorize] Do testow zakomentowalem
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Drive,Owner,Height,MaxDeep,Visibility,Danger,PlaceDescription,Logistic,FaunaAndFlora,AttractionDescribe,Other,GridX,GridY,file")] Place place, HttpPostedFileBase file)
+        public ActionResult Create([Bind(Include = "Drive,Owner,Height,MaxDeep,Visibility,Danger,PlaceDescription,Logistic,FaunaAndFlora,AttractionDescribe,Other,GridX,GridY,file,RequiredPermission")] Place place, HttpPostedFileBase file, string requiredPermission)
         {
             if (ModelState.IsValid)
             {
-                var fileName = Guid.NewGuid().ToString();
-                var path = Path.Combine(Server.MapPath("~/App_Data/Images/"), fileName);
-                file.SaveAs(path);
+                if (file != null)
+                {
+                    var fileName = Guid.NewGuid().ToString();
+                    var path = Path.Combine(Server.MapPath("~/App_Data/Images/"), fileName);
+                    file.SaveAs(path);
 
-                var picture = new Picture { PictureName = fileName, Created = DateTime.Now, IsDefault = true };
-                place.Picture.Add(picture);
+                    var picture = new Picture { PictureName = fileName, Created = DateTime.Now, IsDefault = true };
+                    place.Picture.Add(picture);
+                }
+                if (!String.IsNullOrWhiteSpace(requiredPermission))
+                {
+                    var permission = new RequiredPermission { PermissionName = requiredPermission, Place = place };
+                    place.ReguiredPermission = permission;
+                }
                 place.UserId = User.Identity.GetUserId();
                 _repo.AddPlace(place);   //test dodawania str 356
                 _repo.SaveChanges();
