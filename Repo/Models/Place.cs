@@ -24,19 +24,29 @@ namespace Repo.Models
         public string Drive { get; set; }
         [DisplayName("Właściciel")]
         public string Owner { get; set; }
+        [DisplayName("Wysokość m.n.p.m")]
         public int Height { get; set; }
+        [DisplayName("Głębokość")]
         public double MaxDeep { get; set; }
+        [DisplayName("Widoczność")]
         public double Visibility { get; set; }
+        [DisplayName("Niebezpieczeństwa")]
         public string Danger { get; set; }
+        [DisplayName("Opis miejsca")]
         public string PlaceDescription { get; set; }
+        [DisplayName("Logistyka")]
         public string Logistic { get; set; }
+        [DisplayName("Fauna i Flora")]
         public string FaunaAndFlora { get; set; }
+        [DisplayName("Opis atrakcji")]
         public string AttractionDescribe { get; set; }
+        [DisplayName("Inne")]
         public string Other { get; set; }
         public float GridX { get; set; }
         public float GridY { get; set; }
         public string UserId { get; set; } //proba dodani aid user do place
-        // public DataType AddDate { get; set; }
+       // [DisplayName("Data dodania")]
+        public DateTime AddDate { get; set; }
         //one to one
         public virtual User User { get; set; }
 
@@ -49,5 +59,7 @@ namespace Repo.Models
         public virtual Category Category { get; set; }
         //wiele miejsc moze miec jeden dostep
         public virtual Access Access { get; set; }
+
+        
     }
 }

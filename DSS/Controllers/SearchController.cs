@@ -20,7 +20,7 @@ namespace DSS.Controllers
             return View(new SearchViewModel());
         }
 
-        public ActionResult Search([Bind(Include = "Name,Depth,Visibility,Permission")]SearchViewModel search)
+        public ActionResult Search([Bind(Include = "Name,Depth,Visibility,Permission,Access")]SearchViewModel search)
         {
             if (ModelState.IsValid)
             {
@@ -41,6 +41,16 @@ namespace DSS.Controllers
                 {
                     query=query.Where(x => x.ReguiredPermission.PermissionName == search.Permission.ToString());
                 }
+                if (search.Access != null)
+                {
+                    query = query.Where(x => x.Access.Name == search.Access.ToString());
+                }
+                if (search.Category != null)
+                {
+                    query = query.Where(x => x.Category.CategoryName == search.Category.ToString());
+                }
+                // czy to bedzie działac jak będzie połączeńie z FK Place-Access &FK Place-Category????
+
                 search.Places = query.AsEnumerable();
 
                 return View("Index", search);

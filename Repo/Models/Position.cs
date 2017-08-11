@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Repo.Models
 {
@@ -6,6 +7,7 @@ namespace Repo.Models
     {
         public int Id { get; set; }
         //jak zrobic lokazlizacje???
+        [DisplayName("Lokalizacja")]
         public string Location { get; set; }
 
         [Required]

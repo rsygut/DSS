@@ -17,6 +17,8 @@ namespace DSS.Models.View
         [DisplayName("Widoczność")]
         public double? Visibility { get; set; }
         public RequiredPermission? Permission { get; set; }
-        public IEnumerable<Place> Places {get;set;}
+        public Access? Access { get; set; }
+        public Category? Category { get; set; }
+        public IEnumerable<Place> Places { get; set; }
     }
 }

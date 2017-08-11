@@ -202,6 +202,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Access.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\RequiredPermission.cs" />
     <Compile Include="Models\View\ManageViewModels.cs" />
     <Compile Include="Models\View\SearchViewModel.cs" />
