@@ -68,7 +68,7 @@ namespace DSS.Controllers
         //[Authorize] Do testow zakomentowalem
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,Drive,Owner,Height,MaxDeep,Visibility,Danger,PlaceDescription,Logistic,FaunaAndFlora,AttractionDescribe,Other,GridX,GridY,file,RequiredPermission,AddDate")] Place place, HttpPostedFileBase file, string requiredPermission)//do buinada access i kategorie i stringi do nich
+        public ActionResult Create([Bind(Include = "Name,Drive,Owner,Height,MaxDeep,Visibility,Danger,PlaceDescription,Logistic,FaunaAndFlora,AttractionDescribe,Other,GridX,GridY,file,RequiredPermission,/*Access*//*AddDate*/")] Place place, HttpPostedFileBase file, string requiredPermission /*string accessChosen*/)//do buinada access i kategorie i stringi do nich
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +95,7 @@ namespace DSS.Controllers
                 //}
 
                 // i tak samo z Category
-                place.AddDate = DateTime.Now;
+                // place.AddDate = DateTime.Now;
                 place.UserId = User.Identity.GetUserId();
                 _repo.AddPlace(place);   //test dodawania str 356
                 _repo.SaveChanges();
@@ -129,6 +129,7 @@ namespace DSS.Controllers
         {
             if (ModelState.IsValid)
             {
+                //problem z edycja gdy brakuje edycji zdjecia
                 try
                 {
                     var fileName = Guid.NewGuid().ToString();

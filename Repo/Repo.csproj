@@ -129,7 +129,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TO DO.txt" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +154,10 @@
     <Compile Include="Migrations\201708111801280_datetime adddate.cs" />
     <Compile Include="Migrations\201708111801280_datetime adddate.Designer.cs">
       <DependentUpon>201708111801280_datetime adddate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708131013094_tses removeadddate.cs" />
+    <Compile Include="Migrations\201708131013094_tses removeadddate.Designer.cs">
+      <DependentUpon>201708131013094_tses removeadddate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Access.cs" />
@@ -186,6 +189,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708111801280_datetime adddate.resx">
       <DependentUpon>201708111801280_datetime adddate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708131013094_tses removeadddate.resx">
+      <DependentUpon>201708131013094_tses removeadddate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -46,7 +46,7 @@ namespace Repo.Models
         public float GridY { get; set; }
         public string UserId { get; set; } //proba dodani aid user do place
        // [DisplayName("Data dodania")]
-        public DateTime AddDate { get; set; }
+       // public DateTime AddDate { get; set; }
         //one to one
         public virtual User User { get; set; }
 
