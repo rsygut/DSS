@@ -58,11 +58,11 @@ namespace DSS
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "202663033120-l1ts4ouctj4b0h7fppgnec1tgaor3jft.apps.googleusercontent.com",
+                ClientSecret = "pAiJbyNB8yxgYFthLq0D1hr1"
+            });
         }
     }
 }

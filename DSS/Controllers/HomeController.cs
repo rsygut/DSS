@@ -15,6 +15,8 @@ namespace DSS.Controllers
         {
             _placeRepo = placeRepo;
         }
+        [RequireHttps]
+
         public ActionResult Index()
         {
             return View(_placeRepo.DownloadPlace());
