@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Repo.Models.Place>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="work">
+                <a href="@Url.Action("Details","Place",new {item.Id})">
+                    <img src="@Url.Action("ShowPhoto","Place",new {dataId = item.Picture.FirstOrDefault(x=>x.IsDefault)?.PictureName})" class="img-responsive" alt="" />
+                </a>
+            </div>
+        </div>
+    }
+
+</div> 

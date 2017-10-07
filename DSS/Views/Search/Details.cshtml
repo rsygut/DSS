@@ -1,0 +1,120 @@
+﻿@model Repo.Models.Place
+@{
+    ViewBag.Title = "Szczegóły miejsca: " + Model.Name;
+}
+<h2>Szczegóły miejsca nr @Model.Id</h2>
+<div>
+    <h4>Place</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Drive)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Drive)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Owner)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Owner)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Height)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Height)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxDeep)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MaxDeep)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Visibility)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Visibility)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Danger)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Danger)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PlaceDescription)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PlaceDescription)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Logistic)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Logistic)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FaunaAndFlora)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FaunaAndFlora)
+        </ddF
+        <dt>
+            @Html.DisplayNameFor(model => model.AttractionDescribe)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AttractionDescribe)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Other)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Other)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Latitude)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Latitude)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Longitude)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Longitude)
+        </dd>
+        <dt>
+            @Html.Label("Uprawnienie")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ReguiredPermission)
+        </dd>
+        <dt>
+            @Html.Label("Zdjęcie")
+        </dt>
+        <dd>
+            @foreach (var picture in Model.Picture)
+            {
+                <img src="@Url.Action("ShowPhoto","Place",new {dataId = picture.PictureName})" class="media" alt="" width="150" height="150" />
+            }
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edytuj", "Edit","Place", new { id = Model.Id }, new { @class = "btn btn-primary" }) 
+    @Html.ActionLink("Wróć", "Index", null, new { @class = "btn btn-warning" })
+</p>

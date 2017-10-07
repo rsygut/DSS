@@ -1,0 +1,149 @@
+﻿@model Repo.Models.Place
+
+@{
+    ViewBag.Title = "Miejsce " + Model.Id + "usuń";
+}
+
+<h2>Usuń miejsce</h2>
+@if (ViewBag.Error == true)
+{
+    <div class="alert alert-danger " role="alert">
+        Wystąpił błąd podczas usuwania.<br />
+    </div>
+
+}
+<h3>Czy napewno chcesz usunąć?</h3>
+<div>
+    <h4>Miejsce</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Id autora
+        </dt>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Drive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Drive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Owner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Owner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Height)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Height)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxDeep)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxDeep)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Visibility)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Visibility)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Danger)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Danger)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlaceDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlaceDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Logistic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Logistic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FaunaAndFlora)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FaunaAndFlora)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AttractionDescribe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AttractionDescribe)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Other)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Other)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Latitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Latitude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Longitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Longitude)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Usuń" class="btn btn-danger"
+                   @* tu powinno dzialac okienko do potwierdzania usuwania *@ onclick="returnconfirm('Czy napewno chcesz usunąć')" /> |
+            @Html.ActionLink("Wróć", "Index", null, new { @class = "btn btn-warning" })
+
+        </div>
+    }
+</div>

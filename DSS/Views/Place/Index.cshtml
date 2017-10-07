@@ -1,0 +1,172 @@
+﻿@model IEnumerable<Repo.Models.Place>
+@{
+    ViewBag.Title = "Index";
+}
+@using DSS.Extensions;
+<h2>Lista miejsc</h2>
+<p>
+    @Html.ActionLink("Dodaj nowe miejsce", "Create", null, new { @class = "btn btn-primary" })
+</p>
+<head>
+    <style>
+        body {
+            /*background-image: url("http://www.nurkomania.pl/nurkowanie_wrakowe/nurkowanie_wrakowe_006x.jpg") ; */
+            background-color: #cccccc;
+        }
+
+    </style>
+
+</head>
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+
+        @*<th>
+                @Html.DisplayNameFor(model => model.AddDate)
+            </th>*@
+
+        <th>
+            @Html.DisplayNameFor(model => model.ReguiredPermission)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Access)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Drive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Owner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Height)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxDeep)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Visibility)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Danger)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlaceDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Logistic)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FaunaAndFlora)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AttractionDescribe)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Other)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Picture)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.AddDate)
+                </td>*@
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ReguiredPermission)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @item.Access.FriendlyName()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Drive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Owner)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Height)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxDeep)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Visibility)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Danger)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlaceDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Logistic)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FaunaAndFlora)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AttractionDescribe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Other)
+            </td>
+            <td>
+                @*Dodanie ze po kliknieciu przechodzi do miejsca :)*@
+                @*co z
+                    public static class HtmlHelpers
+                    {
+                    public static IHtmlString RemoveLink(this HtmlHelper htmlHelper, string linkText, string container, string deleteElement)
+                    {
+                    var js = string.Format("javascript:removeNestedForm(this,'{0}','{1}');return false;", container, deleteElement);
+                    TagBuilder tb = new TagBuilder("a");
+                    tb.Attributes.Add("href", "#");
+                    tb.Attributes.Add("onclick", js);
+                    tb.InnerHtml = linkText;
+                    var tag = tb.ToString(TagRenderMode.Normal);
+                    return MvcHtmlString.Create(tag);
+                    }
+                    }*@
+                <div class="work">
+                    <a href="@Url.Action("Details","Place",new {item.Id})">
+                        <img src="@Url.Action("ShowPhoto", "Place", new { dataId = item.Picture.FirstOrDefault(x => x.IsDefault)?.PictureName })" class="img-responsive" alt="" width="150" height="150" />
+                        <div class="caption">
+                            <div class="work_title">
+                                <h1>@item.Name @item.MaxDeep</h1>
+                                @if (item.Visibility != 0)
+                                {
+                                    <h3>Widoczność :@item.Visibility</h3>
+                                }
+
+                                <img src="@Url.Action("ShowPhoto","Place",new {item.Id})" class="img-responsive" alt="" width="150" height="150" />
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </td>
+
+
+            <td>
+                @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Szczegóły", "Details", new { id = item.Id }, new { @class = "btn btn-warning" })
+                @Html.ActionLink("Usuń", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+</table>

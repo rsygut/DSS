@@ -1,0 +1,113 @@
+﻿@model SearchViewModel
+
+@using DSS.Models;
+@{
+    ViewBag.Title = "View";
+}
+
+@using (Html.BeginForm("Search", "Search", FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Depth, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Depth, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Depth, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Visibility, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Visibility, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Visibility, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Uprawienie", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Permission",
+                    new SelectList(Enum.GetValues(typeof(RequiredPermission))),
+                    "Wybierz uprawienie",
+                    new { @class = "form-control col-md-10" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.Label("Dostęp", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Access",
+                    new SelectList(Enum.GetValues(typeof(Access))),
+                    "Wybierz dostęp",
+                    new { @class = "form-control col-md-10" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Kategoria", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Category",
+                    new SelectList(Enum.GetValues(typeof(Category))),
+                    "Wybierz kategorie",
+                    new { @class = "form-control col-md-10" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.Label("Powiat", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList(nameof(SearchViewModel.County),
+                    Model.Counties.Select(n => new SelectListItem { Text = n, Value = n }).ToList(),
+                    "Wybierz powiat",
+                    new { @class = "form-control col-md-10" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Wojewodztwo", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList(nameof(SearchViewModel.Province),
+                    Model.Provincies.Select(n => new SelectListItem { Text = n, Value = n }).ToList(),
+                    "Wybierz wojewodztwo",
+                    new { @class = "form-control col-md-10" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Szukaj" class="btn btn-default" />
+            </div>
+        </div>
+
+        <div class="container">
+            @if (Model.Places != null)
+            {
+                foreach (var item in Model.Places)
+                {
+                    <div class="col-md-4">
+                        <a href="@Url.Action("Details", new { id = item.Id })">
+                            <img src="@Url.Action("ShowPhoto","Place",new {dataId = item.Picture.FirstOrDefault(x=>x.IsDefault)?.PictureName})"
+                                 class="img-responsive"
+                                 alt="" />
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+}
